@@ -28,10 +28,9 @@ std::ostream& operator<<(std::ostream& output, const Polynomial& poly)
 	return output;
 }
 
-std::vector<std::complex<double>> Polynomial::findRoots(const double precision, const unsigned long maxIter)
+std::vector<std::complex<double>> Polynomial::findRoots(const double precision, const unsigned long maxIter) const
 {
 	// we find the roots (in complex numbers) for our polynomial using the Durand-Kerner method
-	
 	// create vectors where we will store the current and new solutions 
 	std::vector<std::complex<double>> currentSolutions;
 	std::vector<std::complex<double>> newSolutions;
@@ -57,26 +56,6 @@ std::vector<std::complex<double>> Polynomial::findRoots(const double precision, 
 		currentSolutions = newSolutions;
 	}
 	return currentSolutions;
-}
-
-double Polynomial::operator()(double x) const
-{
-	double val = 0.0; 
-	for (int idx = 0; idx <= m_degree; idx++)
-	{
-		val += (m_coeffs[idx] * pow(x, idx));
-	}
-	return val;
-}
-
-std::complex<double> Polynomial::operator()(std::complex<double> x) const
-{
-	std::complex<double> val = 0.0;
-	for (int idx = 0; idx <= m_degree; idx++)
-	{
-		val += (m_coeffs[idx] * pow(x, idx));
-	}
-	return val;
 }
 
 int Polynomial::getDegree() const
