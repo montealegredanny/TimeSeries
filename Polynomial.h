@@ -2,17 +2,19 @@
 #include <vector>
 #include <iostream>
 #include <complex>
+#include "Root.h"
 
 
 class Polynomial
 {
 	public:
 		Polynomial(std::vector <double> coefficients);
+		Polynomial() : m_coeffs(), m_degree(0) {};
 		friend std::ostream &operator<<(std::ostream& os, const Polynomial & poly);
-		std::vector<std::complex<double>> findRoots(const double precision, const unsigned long maxIter) const;
 		template <typename T> T operator()(T x) const;
 		int getDegree() const;
 		std::vector<double> getCoeffs() const;
+		std::vector<Root> findRoots(const double precision = 1e-6, const unsigned long maxIter = 1000L) const;
 
 	private: 
 		std::vector<double> m_coeffs;

@@ -28,7 +28,7 @@ std::ostream& operator<<(std::ostream& output, const Polynomial& poly)
 	return output;
 }
 
-std::vector<std::complex<double>> Polynomial::findRoots(const double precision, const unsigned long maxIter) const
+std::vector<Root> Polynomial::findRoots(const double precision, const unsigned long maxIter) const
 {
 	// we find the roots (in complex numbers) for our polynomial using the Durand-Kerner method
 	// create vectors where we will store the current and new solutions 
@@ -55,7 +55,30 @@ std::vector<std::complex<double>> Polynomial::findRoots(const double precision, 
 		
 		currentSolutions = newSolutions;
 	}
-	return currentSolutions;
+
+	// create a vector of Roots
+	std::vector<Root> v_roots; 
+	bool isNewRoot; 
+	for (size_t idx = 0 ; idx < currentSolutions.size() ; idx ++)
+	{
+		std::complex<double> solution = currentSolutions[idx];
+		isNewRoot = true;
+
+		for (Root& root : v_roots)
+		{
+			if (solution == root)
+			{
+				isNewRoot = false;
+				root.increaseMultiplicity();
+			}
+		}
+		if (isNewRoot)
+		{
+			v_roots.push_back(Root{ solution });
+		}
+	}
+	//std::cout << numIters << std::endl;
+	return v_roots;
 }
 
 int Polynomial::getDegree() const
@@ -102,7 +125,7 @@ std::vector<std::complex<double>> AlgebraHelper::iterateDurandKerner(const Polyn
 	{
 		std::complex<double> newRoot = currentSolutions[idx];
 		std::complex<double> offset = poly(newRoot); 
-		for (int m = 0; m < idx; m++)
+		for (unsigned int m = 0; m < idx; m++)
 		{
 			offset /= (newRoot - newSolutions[m]);
 		}
