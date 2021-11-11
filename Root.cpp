@@ -1,26 +1,12 @@
 #include "Root.h"
 #include <stdlib.h> 
 
-double PRECISION = 1e-6; 
-
 namespace RootHelper
 {
-	bool AreEqual(std::complex<double> c1, std::complex<double> c2)
+	bool areEqual(std::complex<double> c1, std::complex<double> c2, double precision = 1e-6)
 	{
-		bool areEqual = true; 
-		if ((abs(c1.imag() - c2.imag()) > PRECISION) || (abs(c1.real() - c2.real()) > PRECISION))
-		{
-			areEqual = false;
-		}
-
-		return areEqual; 
+		return !(((abs(c1.imag() - c2.imag()) > precision) || (abs(c1.real() - c2.real()) > precision)));
 	}
-}
-
-Root::Root(std::complex<double> value, unsigned int multiplicity)
-{
-	m_value = value; 
-	m_multiplicity = multiplicity; 
 }
 
 Root::Root(std::complex<double> value)
@@ -31,7 +17,7 @@ Root::Root(std::complex<double> value)
 
 void Root::increaseMultiplicity()
 {
-	this->m_multiplicity += 1;
+	this->m_multiplicity ++;
 }
 
 unsigned int Root::getMultiplicity() const
@@ -52,17 +38,17 @@ std::ostream& operator<<(std::ostream& output, const Root& root)
 
 bool operator==(const Root& lhs, const Root& rhs)
 {
-	return RootHelper::AreEqual(lhs.m_value, rhs.m_value);
+	return RootHelper::areEqual(lhs.m_value, rhs.m_value);
 }
 
 bool operator==(const Root& lhs, std::complex<double> rhs)
 {
-	return RootHelper::AreEqual(lhs.m_value, rhs);
+	return RootHelper::areEqual(lhs.m_value, rhs);
 }
 
 bool operator==(std::complex<double> lhs, const Root& rhs)
 {
-	return RootHelper::AreEqual(rhs.m_value, lhs);;
+	return RootHelper::areEqual(rhs.m_value, lhs);;
 }
 
 

@@ -2,9 +2,9 @@
 #include <complex>
 
 class Root
-	{
+{
 	public: 
-		Root(std::complex<double> value, unsigned int multiplicity);
+		Root(std::complex<double> value, unsigned int multiplicity) : m_value(value), m_multiplicity(multiplicity) {};
 		Root(std::complex<double> value); 
 		friend std::ostream& operator<<(std::ostream& output, const Root& root); 
 		friend bool operator== (const Root& lhs, const Root& rhs);
