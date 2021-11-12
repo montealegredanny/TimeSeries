@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -143,13 +143,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DifferenceEquations.cpp" />
+    <ClCompile Include="Algebra\ComplexPolynomial.cpp" />
+    <ClCompile Include="Algebra\DifferenceEquations.cpp" />
+    <ClCompile Include="Algebra\DifferenceEquationSolver.cpp" />
+    <ClCompile Include="Distribution\NormalDistribution.cpp" />
+    <ClCompile Include="LinearAlgebra\GaussElimination.cpp" />
+    <ClCompile Include="LinearAlgebra\Matrix.cpp" />
+    <ClCompile Include="LinearAlgebra\OLS.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Polynomial.cpp" />
+    <ClCompile Include="Algebra\Polynomial.cpp" />
+    <ClCompile Include="Algebra\Root.cpp" />
+    <ClCompile Include="TimeSeries\AR.cpp" />
+    <ClCompile Include="TimeSeries\DataAnalysis.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DifferenceEquations.h" />
-    <ClInclude Include="Polynomial.h" />
+    <ClInclude Include="Algebra\ComplexPolynomial.h" />
+    <ClInclude Include="Distribution\Distribution.h" />
+    <ClInclude Include="Distribution\NormalDistribution.h" />
+    <ClInclude Include="LinearAlgebra\OLS.h" />
+    <ClInclude Include="LinearAlgebra\Matrix.h" />
+    <ClInclude Include="TimeSeries\DataAnalysis.h" />
+    <ClInclude Include="Algebra\DifferenceEquations.h" />
+    <ClInclude Include="Algebra\DifferenceEquationSolver.h" />
+    <ClInclude Include="LinearAlgebra\GaussElimination.h" />
+    <ClInclude Include="Algebra\Polynomial.h" />
+    <ClInclude Include="Algebra\Root.h" />
+    <ClInclude Include="TimeSeries\AR.h" />
+    <ClInclude Include="TimeSeries\TimeSeries.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

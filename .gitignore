@@ -36,3 +36,7 @@
 
 *.idb
 *.pdb
+
+*.vcxproj
+*.vcxproj.user
+*.filter
