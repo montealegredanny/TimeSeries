@@ -103,6 +103,7 @@ std::vector<double> GaussElimination(std::vector< std::vector<double> > A) {
     return x;
 }
 
+//TODO -- move to unit testing 
 void testGaussianElimination()
 {
     /*

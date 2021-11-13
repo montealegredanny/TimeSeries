@@ -88,7 +88,6 @@ Matrix Matrix::transpose() const
     return Matrix(transposed);
 }
 
-
 Matrix Matrix::MatMul(const Matrix& left, const Matrix& right)
 {
     int dim1_left = left.getNumRows();
