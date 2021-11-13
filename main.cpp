@@ -25,9 +25,13 @@ int main()
 
 	//std::cout << test1.isStationary() << std::endl; 
 
-	std::vector<double> row1{ 1.0, 2.0 }; 
-	std::vector<double> row2{ 0.0, 1.0 }; 
+	std::vector<double> row1{ 1.0, 2.0 , 3.0}; 
+	std::vector<double> row2{ 0.0, 1.0 , -6.0}; 
 	Matrix mat{ std::vector<std::vector<double>> {row1, row2} };
+
+	std::cout << mat << std::endl;
+	
+	std::cout << mat.transpose() << std::endl;
 
 	print(solveMatrixEqtn(mat, std::vector<double>{2.0, 3.0}));
 

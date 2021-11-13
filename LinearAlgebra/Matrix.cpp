@@ -1,30 +1,22 @@
 # include "Matrix.h"
 #include <assert.h>
 
-// constructor
-// note that we make a copy of data when the function is invoked 
-// and then we can move the data into the vector (so a total of one copy). 
 Matrix::Matrix(std::vector<std::vector<double>> mat)
 {
     m_data = std::move(mat);
 }
 
-// copy constructor
-// note that we do not use move here since we want to leave other untouched. 
 Matrix::Matrix(const Matrix& other)
 {
     m_data = std::vector<std::vector<double>>(other.m_data);
 }
 
-// move constructor
-// receives an r value reference
 Matrix::Matrix(Matrix&& other) noexcept
 {
     m_data = std::move(other.m_data);
     // other.data is now some giberish legal data (i.e., we can read it, but its some random non-sense).
 }
 
-// copy assigment
 Matrix& Matrix::operator=(const Matrix& other)
 {
     if (&other != this)
@@ -34,7 +26,6 @@ Matrix& Matrix::operator=(const Matrix& other)
     return *this;
 }
 
-// move assigment 
 Matrix& Matrix::operator=(Matrix&& other) noexcept
 {
     if (&other != this)
@@ -45,7 +36,6 @@ Matrix& Matrix::operator=(Matrix&& other) noexcept
     return *this;
 }
 
-// destructor
 Matrix::~Matrix()
 {
     // do nothing..
@@ -60,6 +50,7 @@ int Matrix::getNumCols() const
 {
     return int (m_data[0].size());
 }
+
 double Matrix::get(int i, int j) const
 {
     return (m_data)[i][j];
@@ -69,6 +60,25 @@ void Matrix::set(int i, int j, double val)
 {
     (m_data)[i][j] = val;
 }
+
+Matrix Matrix::transpose() const
+{
+    std::vector<std::vector<double>> transposed; 
+    int numRows = this->getNumRows();
+    int numCols = this->getNumCols(); 
+
+    for (int r_idx = 0; r_idx < numCols; r_idx++)
+    {
+        std::vector<double> row; 
+        for (int c_idx = 0; c_idx < numRows; c_idx++)
+        {
+            row.push_back(this->get(c_idx, r_idx));
+        }
+        transposed.push_back(row);
+    }
+    return Matrix(transposed);
+}
+
 
 Matrix Matrix::MatMul(const Matrix& left, const Matrix& right)
 {
@@ -121,4 +131,74 @@ std::ostream& operator<<(std::ostream& os, const Matrix& mat)
         std::cout << std::endl;
     }
     return os;
+}
+
+Matrix operator*(const double scale, const Matrix& mat)
+{
+    int numRows = mat.getNumRows();
+    int numCols = mat.getNumCols();
+
+    std::vector<std::vector<double>> scaledMat;
+    for (int r_idx = 0; r_idx < numRows; r_idx++)
+    {
+        std::vector<double> row;
+        for (int c_idx = 0; c_idx < numCols; c_idx++)
+        {
+            row.push_back(mat.get(r_idx, c_idx) * scale);
+        }
+        scaledMat.push_back(row);
+    }
+    return Matrix(scaledMat);
+}
+
+Matrix operator*(const Matrix& mat, const double scale)
+{
+    return scale * mat;
+}
+
+Matrix operator+(const Matrix& left, const Matrix& right)
+{
+    assert(left.getNumCols() == right.getNumCols());
+    assert(left.getNumRows() == right.getNumRows());
+
+    int numRows = left.getNumRows();
+    int numCols = left.getNumCols();
+
+    std::vector<std::vector<double>> mat;
+    for (int r_idx = 0; r_idx < numRows; r_idx++)
+    {
+        std::vector<double> row;
+        for (int c_idx = 0; c_idx < numCols; c_idx++)
+        {
+            row.push_back(left.get(r_idx, c_idx) + right.get(r_idx, c_idx));
+        }
+        mat.push_back(row);
+    }
+    return Matrix(mat);
+}
+
+Matrix operator-(const Matrix& left, const Matrix& right)
+{
+    assert(left.getNumCols() == right.getNumCols());
+    assert(left.getNumRows() == right.getNumRows());
+
+    int numRows = left.getNumRows();
+    int numCols = left.getNumCols();
+
+    std::vector<std::vector<double>> mat;
+    for (int r_idx = 0; r_idx < numRows; r_idx++)
+    {
+        std::vector<double> row;
+        for (int c_idx = 0; c_idx < numCols; c_idx++)
+        {
+            row.push_back(left.get(r_idx, c_idx) - right.get(r_idx, c_idx));
+        }
+        mat.push_back(row);
+    }
+    return Matrix(mat);
+}
+
+Matrix operator*(const Matrix& left, const Matrix& right)
+{
+    return Matrix::MatMul(left, right);
 }

@@ -46,7 +46,6 @@ std::vector<double> DifferenceEquation::getInitConditions() const
 	return m_initConditions;
 }
 
-
 void testDifferenceEquations()
 {
 	DifferenceEquation diffEqtn{ std::vector<double>{0.0, 0.5}, std::vector<double>{1.0, 3.0} };
