@@ -1,6 +1,15 @@
 # include "Matrix.h"
 #include <assert.h>
 
+Matrix::Matrix(const std::vector<double> v_data)
+{
+    // created an n by 1 matrix. 
+    for (size_t idx = 0; idx < v_data.size(); idx++)
+    {
+        m_data.push_back(std::vector<double>{v_data[idx]});
+    }
+}
+
 Matrix::Matrix(std::vector<std::vector<double>> mat)
 {
     m_data = std::move(mat);

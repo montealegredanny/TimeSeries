@@ -133,7 +133,7 @@ void testGaussianElimination()
 
 }
 
-std::vector<double> solveMatrixEqtn(std::vector<std::vector<double>> A, std::vector<double> b)
+std::vector<double> solveMatrixEqtn(const std::vector<std::vector<double>>& A, const std::vector<double>& b)
 {
     // create the augmented matrix and call gauss elimination 
     std::vector<std::vector<double>> augmentedMat; 
@@ -147,7 +147,18 @@ std::vector<double> solveMatrixEqtn(std::vector<std::vector<double>> A, std::vec
     return GaussElimination(augmentedMat);
 }
 
-std::vector<double> solveMatrixEqtn(Matrix A, std::vector<double> b)
+std::vector<double> solveMatrixEqtn(const Matrix& A, const Matrix& b)
 {
-    return solveMatrixEqtn(A.getData(), b);
+    std::vector<double> v_b; 
+    for (int idx = 0; idx < b.getNumRows(); idx++)
+    {
+        v_b.push_back(b.get(idx, 0));
+    }
+
+    return solveMatrixEqtn(A.getData(), v_b);
+}
+
+std::vector<double> solveMatrixEqtn(const Matrix& A, const std::vector<double>& b)
+{
+    return solveMatrixEqtn(A.getData(), b); 
 }

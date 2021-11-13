@@ -17,6 +17,7 @@ class Matrix
         Matrix& operator=(const Matrix& other); 
         Matrix& operator=(Matrix&& other) noexcept;                                  
         ~Matrix(); // destructor
+        Matrix(const std::vector<double> v_data); 
 
         // overload some operators
         friend std::ostream& operator<<(std::ostream& os, const Matrix& mat);

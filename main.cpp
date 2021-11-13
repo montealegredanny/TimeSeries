@@ -3,6 +3,7 @@
 # include "TimeSeries/AR.h"
 # include "TimeSeries/DataAnalysis.h"
 # include "LinearAlgebra/Matrix.h"
+# include "LinearAlgebra/OLS.h"
 
 template <typename T>
 void print(T x)
@@ -18,22 +19,17 @@ int main()
 	//DifferenceEquation diffEqtn{ std::vector<double>{1.0, -2.0, -1.0}, std::vector<double>{0.0, 1.0,2.0} };
 	//DifferenceEquationSolver solver{ diffEqtn }; 	
 	//solver.solve(); 
-	//double sigma = 2.0;
-	//double c = -.75;
-	//
-	//AR test1{ std::vector<double>{c},sigma };
+	double sigma = 2.0;
+	double c = -0.95;
+	AR test1{ std::vector<double>{c},sigma };
 
-	//std::cout << test1.isStationary() << std::endl; 
+	auto series = test1.generate(1000);
 
-	std::vector<double> row1{ 1.0, 2.0 , 3.0}; 
-	std::vector<double> row2{ 0.0, 1.0 , -6.0}; 
-	Matrix mat{ std::vector<std::vector<double>> {row1, row2} };
+	// we are going to regress x_t against x_{t-1} 
+	auto x_t = Matrix(std::vector<double>(series.begin() + 1, series.end())); // this is X
+	auto x_lag = Matrix(std::vector<double>(series.begin(), series.end() - 1)); // this is Z
+	x_lag = x_lag.transpose();
 
-	std::cout << mat << std::endl;
-	
-	std::cout << mat.transpose() << std::endl;
-
-	print(solveMatrixEqtn(mat, std::vector<double>{2.0, 3.0}));
-
+	std::cout << OLS::runRegression(x_t, x_lag); // note that it prints the 0 intercept and the c intercept
 	return 0; 
 }

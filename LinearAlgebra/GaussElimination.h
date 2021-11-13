@@ -9,6 +9,7 @@ std::vector<double> GaussElimination(std::vector< std::vector<double> > A);
 void testGaussianElimination();
 
 // solves the equation Ax = b 
-std::vector<double> solveMatrixEqtn(std::vector<std::vector<double>> A, std::vector<double> b);
-std::vector<double> solveMatrixEqtn(Matrix A, std::vector<double> b);
+std::vector<double> solveMatrixEqtn(const std::vector<std::vector<double>>& A, const std::vector<double>& b);
+std::vector<double> solveMatrixEqtn(const Matrix& A, const Matrix& b); 
+std::vector<double> solveMatrixEqtn(const Matrix& A, const std::vector<double>& b);
 
