@@ -22,7 +22,7 @@ int main()
 
 	auto series = test1.generate(1000);
 
-	print(DataAnalysis::autoCovariance(series, 0, 10));
+	print(DataAnalysis::acf(series, 0, 10));
 
 	// we are going to regress x_t against x_{t-1} 
 	auto x_t = Matrix(std::vector<double>(series.begin() + 1, series.end())); // this is X

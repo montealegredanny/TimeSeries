@@ -24,7 +24,7 @@ double DataAnalysis::mean(const std::vector<double>& series)
 	return total / series.size();
 }
 
-double DataAnalysis::autoCovariance(const std::vector<double> series, const int lag)
+double DataAnalysis::autoCovariance(const std::vector<double>& series, const int lag)
 {
 	double mean = DataAnalysis::mean(series); 
 	double total = 0.0; 
@@ -37,7 +37,7 @@ double DataAnalysis::autoCovariance(const std::vector<double> series, const int 
 }
 
 
-std::vector<double> DataAnalysis::autoCovariance(const std::vector<double> series, const  int startLag, const int endLag )
+std::vector<double> DataAnalysis::autoCovariance(const std::vector<double>& series, const  int startLag, const int endLag )
 {
 	double mean = DataAnalysis::mean(series); 
 	std::vector<double> v_covs;
@@ -52,4 +52,42 @@ std::vector<double> DataAnalysis::autoCovariance(const std::vector<double> serie
 		v_covs.push_back(total / series.size()); 
 	}
 	return v_covs;
+}
+
+double DataAnalysis::acf(const std::vector<double>& series, const int lag)
+{
+	double variance = DataAnalysis::var(series); 
+	return DataAnalysis::autoCovariance(series, lag) / variance;
+}
+
+std::vector<double> DataAnalysis::acf(const std::vector<double>& series, const int startLag, const int endLag)
+{
+	std::vector<double> covariances = DataAnalysis::autoCovariance(series, startLag, endLag);
+	double variance = DataAnalysis::var(series);
+	for (double& cov : covariances)
+	{
+		cov /= variance;
+	}
+	return covariances;
+}
+
+// todo -- implement the cross correlation functions~
+double DataAnalysis::crossCovariance(const std::vector<double>& xSeries, const std::vector<double>& ySeries, const int lag)
+{
+	return 0.0;
+}
+
+std::vector<double> DataAnalysis::crossCovariance(const std::vector<double>& xSeries, const std::vector<double>& ySeries, const int startLag, const int endLag)
+{
+	return std::vector<double>();
+}
+
+double DataAnalysis::ccf(const std::vector<double>& xSeries, const std::vector<double>& ySeries, const int lag)
+{
+	return 0.0;
+}
+
+std::vector<double> DataAnalysis::ccf(const std::vector<double>& xSeries, const std::vector<double>& ySeries, const int startLag, const int endLag)
+{
+	return std::vector<double>();
 }
