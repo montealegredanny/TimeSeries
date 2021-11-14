@@ -24,7 +24,7 @@ double DataAnalysis::mean(const std::vector<double>& series)
 	return total / series.size();
 }
 
-double DataAnalysis::autoCovariance(std::vector<double> series, int lag)
+double DataAnalysis::autoCovariance(const std::vector<double> series, const int lag)
 {
 	double mean = DataAnalysis::mean(series); 
 	double total = 0.0; 
@@ -36,7 +36,8 @@ double DataAnalysis::autoCovariance(std::vector<double> series, int lag)
 	return total / series.size();
 }
 
-std::vector<double> DataAnalysis::autoCovariance(std::vector<double> series, int startLag, int endLag)
+
+std::vector<double> DataAnalysis::autoCovariance(const std::vector<double> series, const  int startLag, const int endLag )
 {
 	double mean = DataAnalysis::mean(series); 
 	std::vector<double> v_covs;
