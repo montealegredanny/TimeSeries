@@ -1,6 +1,8 @@
 #pragma once
 #include "TimeSeries.h"
 #include "../Algebra/Polynomial.h"
+#include "../LinearAlgebra/Matrix.h"
+#include "../LinearAlgebra/GaussElimination.h"
 
 /*
 	If we give it coefficients = {c_1,...,c_p} then we model 
@@ -18,6 +20,7 @@ class AR : public TimeSeries
 		std::vector<double> generate(unsigned long n);
 		double var() const;
 		bool isStationary() const;
+		double getAutoCorrelation(int lag) const;
 
 	private:
 		// variables that define the model 

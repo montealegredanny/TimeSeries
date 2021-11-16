@@ -12,13 +12,12 @@ public:
 	virtual std::vector<double> generate(unsigned long n) = 0; 
 	virtual bool isStationary() const = 0; 
 	virtual double var() const = 0; 
+	virtual double getAutoCorrelation(int lag) const = 0; 
 
 	/*
 	
 	// theoretical values given model params
-	virtual double getVariance() = 0 ; 
-	virtual double getAutoCovariance(int lag) = 0; 
-	virtual double getAutoCorrelation(int lag) = 0; 
+	virtual double getAutoCovariance(int lag) const = 0; 
 	virtual double getPartialAutoCorrelation(int lag) = 0; 
 	
 	// vector versions of the above functions 
