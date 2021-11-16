@@ -75,7 +75,7 @@ double AR::getAutoCorrelation(int lag) const
 
 	std::vector<std::vector<double>> initialConditionsCoeffs;
 	std::vector<double> eqtnVals(m_p); 
-	for (unsigned int lag = 0; lag < m_p; lag++)
+	for (int lag = 0; lag < m_p; lag++)
 	{
 		if (lag == 0)
 		{
@@ -89,7 +89,7 @@ double AR::getAutoCorrelation(int lag) const
 		{
 			// we use the definition of an AR(p) process to set the equations up
 			std::vector<double> row(m_p); 
-			for (unsigned int idx = 0; idx < m_p; idx++)
+			for (int idx = 0; idx < m_p; idx++)
 			{
 				double coeffVal = 0.0; 
 				if (idx == 0)
@@ -100,7 +100,7 @@ double AR::getAutoCorrelation(int lag) const
 				{
 					if (lag + idx <= m_p)
 					{
-						coeffVal += m_coeffs[lag + idx - 1L];
+						coeffVal += m_coeffs[lag + idx - 1];
 					}
 					if (lag - idx > 0)
 					{
