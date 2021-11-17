@@ -10,7 +10,7 @@ X is an a vector of size n.
 */
 namespace OLS
 {
+	Matrix runRegression(const std::vector<double>& X, const Matrix& Z, bool add_intercept = true);
 	Matrix runRegression(const std::vector<double>& X, const std::vector<std::vector<double>>& Z, bool add_intercept = true); // main function the others end up calling
 	Matrix runRegression(const Matrix& X, const Matrix & Z, bool add_intercept = true);
-	Matrix runRegression(const std::vector<double>& X, const Matrix& Z, bool add_intercept = true);
 }

@@ -37,5 +37,6 @@ class Matrix
 
         // misc 
         Matrix transpose() const; 
+        double determinant() const; 
 };
 

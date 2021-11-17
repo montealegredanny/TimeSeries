@@ -6,7 +6,6 @@
 
 std::vector<std::complex<double>> GaussElimination(std::vector < std::vector<std::complex<double>>> A); 
 std::vector<double> GaussElimination(std::vector< std::vector<double> > A);
-void testGaussianElimination();
 
 // solves the equation Ax = b 
 std::vector<double> solveMatrixEqtn(const std::vector<std::vector<double>>& A, const std::vector<double>& b);

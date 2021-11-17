@@ -83,7 +83,7 @@ void exampleSolveMatrixEquation()
 
 	we set them up as a system AX = b 
 	*/
-	std::cout << "============= Example # 1 for gauss elimination ============= \n\n";
+	std::cout << "============= Example # 1 for solving matrix equation ============= \n\n";
 	Matrix A{ {{3., -2., 5.}, {4., -7., -1.}, {5., -6., 4.}} };
 	Matrix b{ {2., 19., 13.} }; // note that this gets created as a 3 by 1 matrix. 
 
@@ -127,5 +127,18 @@ void exampleAR()
 		std::cout << "ACF (theoretically) lag(" << idx << ") = " << arProcess.getAutoCorrelation(idx) << std::endl;
 		std::cout << "ACF (empirically) lag(" << idx << ") = " << DataAnalysis::acf(sample, idx) << std::endl;
 	}
+}
+
+void exampleOLS()
+{
+	std::cout << "============= Example for OLS regression =============\n";
+	Matrix Z({ -2., -1., 0., 1., 2. });
+	Z = Z.transpose();
+	Matrix X{ {-4., -2., 0., 2., 4. } };
+	std::cout << "regressing X ~ Z + 1 \n"; 
+	std::cout << "with X = " << X.transpose();
+	std::cout << "and Z = " << Z;
+	Matrix betas = OLS::runRegression(X,  Z);
+	std::cout << "betas = " << betas.transpose() << std::endl;
 }
 

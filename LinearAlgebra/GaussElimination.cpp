@@ -13,7 +13,6 @@ inline double normSq(std::complex<double> x)
 std::vector<std::complex<double>> GaussElimination(std::vector<std::vector<std::complex<double>>> A)
 {
     size_t n = A.size();
-
     for (size_t i = 0; i < n; i++) {
         // Search for norm maximum in this column
         double maxEl = normSq(A[i][i]);

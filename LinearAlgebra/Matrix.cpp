@@ -88,6 +88,69 @@ Matrix Matrix::transpose() const
     return Matrix(transposed);
 }
 
+double Matrix::determinant() const
+{
+    // copy of the data: 
+    std::vector<std::vector<double>> A = this->getData(); 
+    int n = int(A.size());
+    int numSwaps = 0;
+    for (int colIdx = 0; colIdx < n; colIdx++)
+    {
+        bool leadNotZero = true;
+        // if the A[colIdx][colIdx] is not zero, then we use it to cancel the rows below it
+        if (A[colIdx][colIdx] == 0.0) // todo -- maybe check if abs < 1e-6 to avoid possible numerical issues.
+        {
+            leadNotZero = false;
+            // look for a candidate to flip rows:
+            for (int rowIdx = colIdx + 1; rowIdx < n; rowIdx++)
+            {
+                if (A[rowIdx][colIdx] != 0)
+                {
+                    double temp;
+                    for (int k = colIdx; k < n; k++)
+                    {
+                        temp = A[rowIdx][k];
+                        A[rowIdx][k] = A[colIdx][k];
+                        A[colIdx][k] = temp;
+                    }
+                    leadNotZero = true;
+                    numSwaps += 1;
+                    break;
+                }
+            }
+        }
+
+        if (leadNotZero)
+        {
+            for (int rowIdx = colIdx + 1; rowIdx < n; rowIdx++)
+            {
+                double scalar = A[rowIdx][colIdx] / A[colIdx][colIdx];
+                for (int k = colIdx; k < n; k++)
+                {
+                    A[rowIdx][k] = A[rowIdx][k] - scalar * A[colIdx][k];
+                }
+            }
+        }
+        else
+        {
+            // in case we have a leading zero that we could not swap, it means that there will be a zero in the diagonal
+            // so we terminate the call early. 
+            return 0.0;
+        }
+    }
+    double determinant = 1.0;
+    for (int k = 0; k < n; k++)
+    {
+        determinant *= A[k][k];
+    }
+
+    if (numSwaps % 2 == 1)
+    {
+        determinant *= -1.;
+    }
+    return determinant;
+}
+
 Matrix Matrix::MatMul(const Matrix& left, const Matrix& right)
 {
     int dim1_left = left.getNumRows();

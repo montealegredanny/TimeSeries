@@ -95,17 +95,16 @@ std::vector<double> AR::findInitialConditions()
 	// we want to find the p initial values for the autocovariance function. 
 	std::vector<std::vector<double>> initialConditionsCoeffs;
 	std::vector<double> eqtnVals(m_p);
-	for (int lag = 0; lag < m_p; lag++)
+	for (int lag = 0; lag < int(m_p); lag++)
 	{
 		if (lag == 0)
 		{
-
 			std::vector<double> row(m_p);
 			row[0] = 1. - std::inner_product(std::begin(m_coeffs), std::end(m_coeffs), std::begin(m_coeffs), 0.0);
-			for (int i = 1; i < m_p; i++)
+			for (int i = 1; i < int(m_p); i++)
 			{
 				double coeff_i = 0.0;
-				for (int j = i + 1; j <= m_p; j++)
+				for (int j = i + 1; j <= int(m_p); j++)
 				{
 					coeff_i += m_coeffs[j - 1] * m_coeffs[j - i - 1];
 				}
@@ -119,7 +118,7 @@ std::vector<double> AR::findInitialConditions()
 		{
 			// we use the definition of an AR(p) process to set the equations up
 			std::vector<double> row(m_p);
-			for (int idx = 0; idx < m_p; idx++)
+			for (int idx = 0; idx < int(m_p); idx++)
 			{
 				double coeffVal = 0.0;
 				if (idx == 0)
@@ -128,7 +127,7 @@ std::vector<double> AR::findInitialConditions()
 				}
 				else
 				{
-					if (lag + idx <= m_p)
+					if (lag + idx <= int(m_p))
 					{
 						coeffVal += m_coeffs[lag + idx - 1];
 					}
@@ -146,6 +145,5 @@ std::vector<double> AR::findInitialConditions()
 			initialConditionsCoeffs.push_back(row);
 		}
 	}
-
 	return solveMatrixEqtn(Matrix(initialConditionsCoeffs), eqtnVals);
 }
