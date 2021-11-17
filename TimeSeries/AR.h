@@ -3,6 +3,7 @@
 #include "../Algebra/Polynomial.h"
 #include "../LinearAlgebra/Matrix.h"
 #include "../LinearAlgebra/GaussElimination.h"
+#include "../Algebra/DifferenceEquations.h"
 
 /*
 	If we give it coefficients = {c_1,...,c_p} then we model 
@@ -20,6 +21,7 @@ class AR : public TimeSeries
 		std::vector<double> generate(unsigned long n);
 		double var() const;
 		bool isStationary() const;
+		double getAutoCovariance(int lag) const;
 		double getAutoCorrelation(int lag) const;
 
 	private:
@@ -34,4 +36,10 @@ class AR : public TimeSeries
 		bool m_isStationary; 
 		Polynomial m_charPoly;
 		std::vector<Root> m_roots; 
+
+		// private function to solve for the autocovariance function. 
+		DifferenceEquation m_autoCovarianceDiffEqtn;
+		void setDifferenceEqtn(); 
+		std::vector<double> findInitialConditions(); 
+
 };

@@ -18,10 +18,10 @@ namespace DataAnalysis
 
 	// cross covariance 
 	double crossCovariance(const std::vector<double>& xSeries, const  std::vector<double>& ySeries, const  int lag);
-	std::vector<double> crossCovariance(const std::vector<double>& xSeries, const  std::vector<double>& ySeries, const  int startLag = 0, const  int endLag = 0 );
+	std::vector<double> crossCovariance(const std::vector<double>& xSeries, const  std::vector<double>& ySeries, const  int startLag, const  int endLag);
 
 	// cross correlation function
 	double ccf(const std::vector<double>& xSeries, const  std::vector<double>& ySeries, const  int lag);
-	std::vector<double> ccf(const std::vector<double>& xSeries, const  std::vector<double>& ySeries, const  int startLag = 0, const  int endLag = 0);
+	std::vector<double> ccf(const std::vector<double>& xSeries, const  std::vector<double>& ySeries, const  int startLag, const  int endLag);
 
 }

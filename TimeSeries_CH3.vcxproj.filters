@@ -51,6 +51,9 @@
     <ClCompile Include="LinearAlgebra\OLS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="examples.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinearAlgebra\GaussElimination.h">
@@ -90,6 +93,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LinearAlgebra\OLS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="examples.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

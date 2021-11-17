@@ -153,6 +153,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Algebra\Polynomial.cpp" />
     <ClCompile Include="Algebra\Root.cpp" />
+    <ClCompile Include="examples.cpp" />
     <ClCompile Include="TimeSeries\AR.cpp" />
     <ClCompile Include="TimeSeries\DataAnalysis.cpp" />
   </ItemGroup>
@@ -160,6 +161,7 @@
     <ClInclude Include="Algebra\ComplexPolynomial.h" />
     <ClInclude Include="Distribution\Distribution.h" />
     <ClInclude Include="Distribution\NormalDistribution.h" />
+    <ClInclude Include="examples.h" />
     <ClInclude Include="LinearAlgebra\OLS.h" />
     <ClInclude Include="LinearAlgebra\Matrix.h" />
     <ClInclude Include="TimeSeries\DataAnalysis.h" />

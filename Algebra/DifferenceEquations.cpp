@@ -15,7 +15,7 @@ DifferenceEquation::DifferenceEquation(std::vector<double> coefficients, std::ve
 	m_degree = int(coefficients.size());
 }
 
-std::vector<double> DifferenceEquation::generate(long n) 
+std::vector<double> DifferenceEquation::generate(long n) const
 {
 	std::vector<double> values{ m_initConditions };
 	

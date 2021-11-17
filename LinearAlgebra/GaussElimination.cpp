@@ -103,37 +103,6 @@ std::vector<double> GaussElimination(std::vector< std::vector<double> > A) {
     return x;
 }
 
-//TODO -- move to unit testing 
-void testGaussianElimination()
-{
-    /*
-    Consider the system of equations: 
-    x_1 + x_2 = 1
-    i * x_1 - i * x_2 = 2*sqrt(2)
-    
-    Then the solutions are 
-    x_1 = (1/2) - sqrt(2) i 
-    x_2 = (1/2) + sqrt(2) i 
-    */
-
-    // create the augmented matrix: 
-    std::vector<std::vector<std::complex<double>>> A; 
-
-    // first row: 
-    A.push_back(std::vector<std::complex<double>> {std::complex<double> {1.0, 0.0}, std::complex<double> {1.0, 0.0}, std::complex<double> {1.0, 0.0}});
-    
-    // second row: 
-    A.push_back(std::vector<std::complex<double>> {std::complex<double> {0.0, 1.0}, std::complex<double> {0.0, -1.0}, std::complex<double> {2 * sqrt(2.0), 0.0}});
-
-    std::vector<std::complex<double>> solutions = GaussElimination(A); 
-
-    for (auto& val : solutions) 
-    {
-        std::cout << val << std::endl;
-    }
-
-}
-
 std::vector<double> solveMatrixEqtn(const std::vector<std::vector<double>>& A, const std::vector<double>& b)
 {
     // create the augmented matrix and call gauss elimination 
