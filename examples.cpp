@@ -102,14 +102,7 @@ void exampleSolveMatrixEquation()
 
 void exampleAR()
 {
-	/*
-	Create an ar process -- 
-	check it is stationary
-	compute the variance 
-	compute the acf 
-	compare the above values with the empirical result from running a large sample. 
-	*/
-	std::cout << "============= Example for an AR process =============\n";
+	std::cout << "============= Example for an AR(6) process =============\n";
 	double sigma = 2.0;
 	std::vector<double> coeffs{ 0.225 , -0.8, 0.5, -0.27, 0.01, -0.2 };
 	AR arProcess{ coeffs, sigma };
@@ -118,33 +111,12 @@ void exampleAR()
 		std::cout << "phi_" << idx + 1 << " = " << coeffs[idx] << std::endl;
 	}
 	std::cout << std::endl;
-	std::cout << "is the process stationary ? " << arProcess.isStationary() << std::endl;
-	std::vector<double> sample{ arProcess.generate(50000) };
-	std::cout << "Variance (theoretically) = " << arProcess.var() << std::endl;
-	std::cout << "Variance (empirically)   = " << DataAnalysis::var(sample) << std::endl;
-	for (int idx = 1; idx < 6; idx++)
-	{
-		std::cout << "ACF (theoretically) lag(" << idx << ") = " << arProcess.getAutoCorrelation(idx) << std::endl;
-		std::cout << "ACF (empirically) lag(" << idx << ") = " << DataAnalysis::acf(sample, idx) << std::endl;
-	}
-	std::cout << std::endl;
-
-	for (int idx = 1; idx < 6; idx++)
-	{
-		std::cout << "PACF (theoretically) lag(" << idx << ") = " << arProcess.getPartialAutoCorrelation(idx) << std::endl;
-	}
+	exampleTimeSeries(arProcess);
 }
 
 void exampleAR2()
 {
-	/*
-	Create an ar process --
-	check it is stationary
-	compute the variance
-	compute the acf
-	compare the above values with the empirical result from running a large sample.
-	*/
-	std::cout << "============= Example for an AR process =============\n";
+	std::cout << "============= Example for an AR(2) process =============\n";
 	double sigma = 2.0;
 	std::vector<double> coeffs{ -1.4, -0.45 };
 	AR arProcess{ coeffs, sigma };
@@ -153,20 +125,54 @@ void exampleAR2()
 		std::cout << "phi_" << idx + 1 << " = " << coeffs[idx] << std::endl;
 	}
 	std::cout << std::endl;
-	std::cout << "is the process stationary ? " << arProcess.isStationary() << std::endl;
-	std::vector<double> sample{ arProcess.generate(50000) };
-	std::cout << "Variance (theoretically) = " << arProcess.var() << std::endl;
+	exampleTimeSeries(arProcess);
+}
+
+void exampleMA()
+{
+	std::cout << "============= Example for an MA(1) process =============\n";
+	double sigma = 2.0;
+	std::vector<double> coeffs{ 0.9 };
+	MA maProcess{ coeffs, sigma };
+	for (size_t idx = 0; idx < coeffs.size(); idx++)
+	{
+		std::cout << "theta_" << idx + 1 << " = " << coeffs[idx] << std::endl;
+	}
+	std::cout << std::endl;
+	exampleTimeSeries(maProcess);
+}
+
+void exampleMA2()
+{
+	std::cout << "============= Example for an MA(3) process =============\n";
+	double sigma = 2.0;
+	std::vector<double> coeffs{ 0.9, -0.85, 0.5 };
+	MA maProcess{ coeffs, sigma };
+	for (size_t idx = 0; idx < coeffs.size(); idx++)
+	{
+		std::cout << "theta_" << idx + 1 << " = " << coeffs[idx] << std::endl;
+	}
+	std::cout << std::endl;
+	exampleTimeSeries(maProcess);
+}
+
+void exampleTimeSeries(TimeSeries& ts)
+{
+	std::cout << "is the process stationary ? " << ts.isStationary() << std::endl;
+	std::vector<double> sample{ ts.generate(50000)};
+	std::cout << "Variance (theoretically) = " << ts.var() << std::endl;
 	std::cout << "Variance (empirically)   = " << DataAnalysis::var(sample) << std::endl;
+
 	for (int idx = 1; idx < 6; idx++)
 	{
-		std::cout << "ACF (theoretically) lag(" << idx << ") = " << arProcess.getAutoCorrelation(idx) << std::endl;
+		std::cout << "ACF (theoretically) lag(" << idx << ") = " << ts.getAutoCorrelation(idx) << std::endl;
 		std::cout << "ACF (empirically) lag(" << idx << ") = " << DataAnalysis::acf(sample, idx) << std::endl;
 	}
 	std::cout << std::endl;
 
 	for (int idx = 1; idx < 6; idx++)
 	{
-		std::cout << "PACF (theoretically) lag(" << idx << ") = " << arProcess.getPartialAutoCorrelation(idx) << std::endl;
+		std::cout << "PACF (theoretically) lag(" << idx << ") = " << ts.getPartialAutoCorrelation(idx) << std::endl;
 	}
 }
 
@@ -176,10 +182,9 @@ void exampleOLS()
 	Matrix Z({ -2., -1., 0., 1., 2. });
 	Z = Z.transpose();
 	Matrix X{ {-4., -2., 0., 2., 4. } };
-	std::cout << "regressing X ~ Z + 1 \n"; 
+	std::cout << "regressing X ~ Z + 1 \n";
 	std::cout << "with X = " << X.transpose();
 	std::cout << "and Z = " << Z;
-	Matrix betas = OLS::runRegression(X,  Z);
+	Matrix betas = OLS::runRegression(X, Z);
 	std::cout << "betas = " << betas.transpose() << std::endl;
 }
-

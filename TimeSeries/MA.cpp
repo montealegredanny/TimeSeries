@@ -58,16 +58,6 @@ double MA::getAutoCorrelation(int lag) const
 	return this->getAutoCovariance(lag) / this->var();
 }
 
-std::vector<double> MA::getAutoCovariance(int startIdx, int endIdx)
-{
-	return std::vector<double>();
-}
-
-std::vector<double> MA::getAutoCorrelation(int startIdx, int endIdx)
-{
-	return std::vector<double>();
-}
-
 double MA::getCoeff(int k) const
 {
 	if (k == 0)

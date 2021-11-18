@@ -22,8 +22,6 @@ public:
 	bool isStationary() const;
 	double getAutoCovariance(int lag) const;
 	double getAutoCorrelation(int lag) const;
-	std::vector<double> getAutoCovariance(int startIdx, int endIdx);
-	std::vector<double> getAutoCorrelation(int startIdx, int endIdx);
 
 private:
 	// variables that define the model 
