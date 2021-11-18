@@ -84,6 +84,31 @@ double AR::getAutoCorrelation(int lag) const
 	return autocovariance / var;
 }
 
+/*
+
+std::vector<double> AR::getAutoCovariance(int startIdx, int endIdx)
+{
+	std::vector<double> covariances; 
+	covariances.reserve(endIdx - startIdx); 
+	for (int curr = startIdx; curr <= endIdx; curr++)
+	{
+		covariances.push_back(AR::getAutoCovariance(curr));
+	}
+	return covariances;
+}
+
+std::vector<double> AR::getAutoCorrelation(int startIdx, int endIdx)
+{
+	std::vector<double> correlations;
+	double var = AR::var();
+	correlations.reserve(endIdx - startIdx);
+	for (int curr = startIdx; curr <= endIdx; curr++)
+	{
+		correlations.push_back(AR::getAutoCovariance(curr) / var);
+	}
+	return correlations;
+}
+*/
 void AR::setDifferenceEqtn()
 {
 	// first find the initial conditions by setting up a system of equations

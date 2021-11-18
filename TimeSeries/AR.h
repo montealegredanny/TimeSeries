@@ -24,6 +24,9 @@ class AR : public TimeSeries
 		double getAutoCovariance(int lag) const;
 		double getAutoCorrelation(int lag) const;
 
+		//std::vector<double> getAutoCovariance(int startIdx, int endIdx);
+		//std::vector<double> getAutoCorrelation(int startIdx, int endIdx);
+
 	private:
 		// variables that define the model 
 		unsigned int m_p; 

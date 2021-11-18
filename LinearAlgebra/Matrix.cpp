@@ -10,6 +10,16 @@ Matrix::Matrix(const std::vector<double> v_data)
     }
 }
 
+Matrix::Matrix(int rowSize, int colSize, double entry)
+{
+    // creates a matrix of the given size.
+    m_data.reserve(rowSize);
+    for (int r = 0; r < rowSize; r++)
+    {
+        m_data.push_back(std::vector<double>(colSize, entry));
+    }
+}
+
 Matrix::Matrix(std::vector<std::vector<double>> mat)
 {
     m_data = std::move(mat);

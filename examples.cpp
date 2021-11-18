@@ -127,6 +127,47 @@ void exampleAR()
 		std::cout << "ACF (theoretically) lag(" << idx << ") = " << arProcess.getAutoCorrelation(idx) << std::endl;
 		std::cout << "ACF (empirically) lag(" << idx << ") = " << DataAnalysis::acf(sample, idx) << std::endl;
 	}
+	std::cout << std::endl;
+
+	for (int idx = 1; idx < 6; idx++)
+	{
+		std::cout << "PACF (theoretically) lag(" << idx << ") = " << arProcess.getPartialAutoCorrelation(idx) << std::endl;
+	}
+}
+
+void exampleAR2()
+{
+	/*
+	Create an ar process --
+	check it is stationary
+	compute the variance
+	compute the acf
+	compare the above values with the empirical result from running a large sample.
+	*/
+	std::cout << "============= Example for an AR process =============\n";
+	double sigma = 2.0;
+	std::vector<double> coeffs{ -1.4, -0.45 };
+	AR arProcess{ coeffs, sigma };
+	for (size_t idx = 0; idx < coeffs.size(); idx++)
+	{
+		std::cout << "phi_" << idx + 1 << " = " << coeffs[idx] << std::endl;
+	}
+	std::cout << std::endl;
+	std::cout << "is the process stationary ? " << arProcess.isStationary() << std::endl;
+	std::vector<double> sample{ arProcess.generate(50000) };
+	std::cout << "Variance (theoretically) = " << arProcess.var() << std::endl;
+	std::cout << "Variance (empirically)   = " << DataAnalysis::var(sample) << std::endl;
+	for (int idx = 1; idx < 6; idx++)
+	{
+		std::cout << "ACF (theoretically) lag(" << idx << ") = " << arProcess.getAutoCorrelation(idx) << std::endl;
+		std::cout << "ACF (empirically) lag(" << idx << ") = " << DataAnalysis::acf(sample, idx) << std::endl;
+	}
+	std::cout << std::endl;
+
+	for (int idx = 1; idx < 6; idx++)
+	{
+		std::cout << "PACF (theoretically) lag(" << idx << ") = " << arProcess.getPartialAutoCorrelation(idx) << std::endl;
+	}
 }
 
 void exampleOLS()

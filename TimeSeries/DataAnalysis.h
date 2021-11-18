@@ -1,6 +1,7 @@
 # pragma 
 # include <vector>
 # include <numeric>
+# include "../LinearAlgebra/Matrix.h"
 
 namespace DataAnalysis
 {
@@ -23,5 +24,8 @@ namespace DataAnalysis
 	// cross correlation function
 	double ccf(const std::vector<double>& xSeries, const  std::vector<double>& ySeries, const  int lag);
 	std::vector<double> ccf(const std::vector<double>& xSeries, const  std::vector<double>& ySeries, const  int startLag, const  int endLag);
+
+	// partial autocorrelation function using Levinson-Durbin recursion without bias correction.
+	double pacf(const std::vector<double>& series, const int lag);
 
 }

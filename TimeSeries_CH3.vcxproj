@@ -156,6 +156,8 @@
     <ClCompile Include="examples.cpp" />
     <ClCompile Include="TimeSeries\AR.cpp" />
     <ClCompile Include="TimeSeries\DataAnalysis.cpp" />
+    <ClCompile Include="TimeSeries\MA.cpp" />
+    <ClCompile Include="TimeSeries\TimeSeries.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Algebra\ComplexPolynomial.h" />
@@ -171,6 +173,7 @@
     <ClInclude Include="Algebra\Polynomial.h" />
     <ClInclude Include="Algebra\Root.h" />
     <ClInclude Include="TimeSeries\AR.h" />
+    <ClInclude Include="TimeSeries\MA.h" />
     <ClInclude Include="TimeSeries\TimeSeries.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

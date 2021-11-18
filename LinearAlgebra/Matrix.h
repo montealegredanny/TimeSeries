@@ -18,6 +18,7 @@ class Matrix
         Matrix& operator=(Matrix&& other) noexcept;                                  
         ~Matrix(); // destructor
         Matrix(const std::vector<double> v_data); 
+        Matrix(int rowSize, int colSize, double entry = 0.0); 
 
         // overload some operators
         friend std::ostream& operator<<(std::ostream& os, const Matrix& mat);

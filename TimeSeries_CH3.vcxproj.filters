@@ -54,6 +54,12 @@
     <ClCompile Include="examples.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TimeSeries\TimeSeries.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeSeries\MA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinearAlgebra\GaussElimination.h">
@@ -96,6 +102,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="examples.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeSeries\MA.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

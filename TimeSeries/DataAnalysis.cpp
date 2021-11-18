@@ -91,3 +91,31 @@ std::vector<double> DataAnalysis::ccf(const std::vector<double>& xSeries, const 
 {
 	return std::vector<double>();
 }
+
+double DataAnalysis::pacf(const std::vector<double>& series, const int lag)
+{
+	// first we find the set of correlations. 
+	std::vector<double> autocorrelations = DataAnalysis::acf(series, 0, lag);
+	if (lag == 1)
+	{
+		return autocorrelations[lag];
+	}
+
+	// set up the matrices for the determinants 
+	Matrix numeratorMatrix(lag, lag, 0.0) ; 
+	Matrix denominatorMatrix(lag, lag, 0.0); 
+
+	for (int rowIdx = 0; rowIdx < lag ; rowIdx++)
+	{
+		for (int colIdx = 0; colIdx < lag - 1; colIdx++)
+		{
+			numeratorMatrix.set(rowIdx, colIdx, autocorrelations[abs(rowIdx - colIdx)]);
+			denominatorMatrix.set(rowIdx, colIdx, autocorrelations[abs(rowIdx - colIdx)]);
+		}
+		numeratorMatrix.set(rowIdx, lag - 1, autocorrelations[rowIdx + 1]);
+		denominatorMatrix.set(rowIdx, lag - 1, autocorrelations[lag - 1 - rowIdx]);
+	}
+
+
+	return numeratorMatrix.determinant() / denominatorMatrix.determinant();
+}

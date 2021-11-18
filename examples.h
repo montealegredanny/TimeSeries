@@ -12,5 +12,6 @@ void examplePolynomial2();
 void exampleGaussianElimination();
 void exampleSolveMatrixEquation(); 
 void exampleAR(); 
+void exampleAR2();
 void exampleOLS();
 
