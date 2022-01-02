@@ -60,6 +60,15 @@
     <ClCompile Include="TimeSeries\MA.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Algebra\Interpolator2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PDE\FTCS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PDE\BlackScholesPDE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LinearAlgebra\GaussElimination.h">
@@ -105,6 +114,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TimeSeries\MA.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Algebra\Interpolator2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PDE\FTCS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PDE\BlackScholesPDE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

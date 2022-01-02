@@ -38,8 +38,8 @@ class AR : public TimeSeries
 		std::vector<Root> m_roots; 
 
 		// private function to solve for the autocovariance function. 
+		std::vector<double> findInitialConditions(); 
 		DifferenceEquation m_autoCovarianceDiffEqtn;
 		void setDifferenceEqtn(); 
-		std::vector<double> findInitialConditions(); 
 
 };

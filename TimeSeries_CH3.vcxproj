@@ -146,6 +146,7 @@
     <ClCompile Include="Algebra\ComplexPolynomial.cpp" />
     <ClCompile Include="Algebra\DifferenceEquations.cpp" />
     <ClCompile Include="Algebra\DifferenceEquationSolver.cpp" />
+    <ClCompile Include="Algebra\Interpolator2D.cpp" />
     <ClCompile Include="Distribution\NormalDistribution.cpp" />
     <ClCompile Include="LinearAlgebra\GaussElimination.cpp" />
     <ClCompile Include="LinearAlgebra\Matrix.cpp" />
@@ -154,6 +155,8 @@
     <ClCompile Include="Algebra\Polynomial.cpp" />
     <ClCompile Include="Algebra\Root.cpp" />
     <ClCompile Include="examples.cpp" />
+    <ClCompile Include="PDE\BlackScholesPDE.cpp" />
+    <ClCompile Include="PDE\FTCS.cpp" />
     <ClCompile Include="TimeSeries\AR.cpp" />
     <ClCompile Include="TimeSeries\DataAnalysis.cpp" />
     <ClCompile Include="TimeSeries\MA.cpp" />
@@ -161,11 +164,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Algebra\ComplexPolynomial.h" />
+    <ClInclude Include="Algebra\Interpolator2D.h" />
     <ClInclude Include="Distribution\Distribution.h" />
     <ClInclude Include="Distribution\NormalDistribution.h" />
     <ClInclude Include="examples.h" />
     <ClInclude Include="LinearAlgebra\OLS.h" />
     <ClInclude Include="LinearAlgebra\Matrix.h" />
+    <ClInclude Include="PDE\BlackScholesPDE.h" />
+    <ClInclude Include="PDE\FTCS.h" />
     <ClInclude Include="TimeSeries\DataAnalysis.h" />
     <ClInclude Include="Algebra\DifferenceEquations.h" />
     <ClInclude Include="Algebra\DifferenceEquationSolver.h" />

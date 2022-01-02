@@ -173,6 +173,7 @@ void exampleTimeSeries(TimeSeries& ts)
 	for (int idx = 1; idx < 6; idx++)
 	{
 		std::cout << "PACF (theoretically) lag(" << idx << ") = " << ts.getPartialAutoCorrelation(idx) << std::endl;
+		std::cout << "PACF (empirically) lag (" << idx << ") = " << DataAnalysis::pacf(sample, idx) << std::endl;
 	}
 }
 
@@ -187,4 +188,126 @@ void exampleOLS()
 	std::cout << "and Z = " << Z;
 	Matrix betas = OLS::runRegression(X, Z);
 	std::cout << "betas = " << betas.transpose() << std::endl;
+}
+
+void exampleFitAR()
+{
+	std::cout << "============= Example for Fitting and AR process =============\n";
+	// create and sample and AR process
+	double sigma = 2.0;
+	std::vector<double> coeffs{ 0.225 , -0.8, 0.5, -0.27, 0.01, -0.2 };
+	AR arProcess{ coeffs, sigma };
+	std::vector<double> sample{ arProcess.generate(50000) };
+	auto fitting = DataAnalysis::fitAR(sample, coeffs.size()); 
+	std::vector<double> fittedPhis = fitting.first;
+	double sigmaFitted = fitting.second; 
+	
+	std::cout << "Real sigma = " << sigma << " vs fitted one = " << sigmaFitted << std::endl;
+	for (int idx = 0; idx < coeffs.size(); idx++)
+	{
+		std::cout << "Real phi_" << idx + 1 << " = " << coeffs[idx] << " vs fitted one = " << fittedPhis[idx] << std::endl;
+	}
+	
+}
+
+void exampleInterpolator2D()
+{
+	std::cout << "===========Example of a Bilinear interpolator ==============\n "; 
+
+	auto f = [](double x, double y) -> double {return x * x * (y / 2.0 + 1); };
+	std::cout << "Interpolation the function x^2(y/2 + 1) \n"; 
+	// create some points 
+	double xMin = 1.0;
+	double xMax = 2.0;
+	long xSteps = 100;
+	double deltaX = (xMax - xMin) / xSteps;
+
+	double yMin = 2.0;
+	double yMax = 4.0;
+	long ySteps = 1000;
+	double deltaY = (yMax - yMin) / ySteps;
+
+	std::vector<double> vectorX;
+	vectorX.reserve(xSteps + 1);
+
+	std::vector<double> vectorY;
+	vectorY.reserve(ySteps + 1);
+
+	for (long idx = 0; idx <= xSteps; idx++)
+	{
+		vectorX.push_back(xMin + idx * deltaX);
+	}
+
+	for (long idx = 0; idx <= ySteps; idx++)
+	{
+		vectorY.push_back(yMin + idx * deltaY);
+	}
+
+	// create the grid 
+	std::map<std::pair<double, double>, double> grid;
+	for (auto& x : vectorX)
+	{
+		for (auto& y : vectorY)
+		{
+			grid[std::make_pair(x, y)] = f(x, y);
+		}
+	}
+
+	// create the interpolator 
+	Interpolator2D interp{ vectorX, vectorY, grid };
+	std::cout << "Value of the interpolator vs the actual value :\n";
+	std::cout << "("<< 1.55322 << "," << 2.65 << ") "<< interp(1.55322, 2.65) << " vs " << f(1.55322, 2.65) << std::endl;
+	std::cout << "(" << 1.5 << "," << 2.651 << ") " << interp(1.5, 2.651) << " vs " << f(1.5, 2.651) << std::endl;
+	std::cout << "(" << 1.55 << "," << 4.0 << ") " << interp(1.55, 4.0) << " vs " << f(1.55, 4.0) << std::endl;
+}
+
+void exampleHeatEquation()
+{
+	std::cout << "============ example Heat Equation =================" << std::endl;
+	double a = 0.25;
+	point xBounds{ 0.0, 2.0 };
+	point tBounds{ 0.0, 2.0 };
+	long xSteps = 200L;
+	long tSteps = 20000L;
+
+	auto lowerLambdaX = [](double t)->double {return 0.0; };
+	auto upperLambdaX = [](double t)->double {return 0.0; };
+	auto lowerLambdaT = [](double x)->double {return 2.0 * sin(M_PI_2 * x) - sin(M_PI * x) + 4.0 * sin(2.0 * M_PI); };
+
+	FTCS scheme{ a , xBounds, tBounds, xSteps, tSteps, lowerLambdaX, upperLambdaX, lowerLambdaT };
+
+	scheme.fit();
+
+	// iterpolate the solution
+	Interpolator2D inter{ scheme.getXVec(), scheme.getTVec(), scheme.getGrid() };
+
+	// compare w exact values: 
+	auto exact_solution = [](double x, double t)->double {
+		return 2.0 * sin(M_PI_2 * x) * exp(-M_PI_4 * M_PI_4 * t) - sin(M_PI * x) * exp(-M_PI_2 * M_PI_2 * t) - sin(2 * M_PI * x) * exp(-M_PI * M_PI * t);
+	};
+
+	std::cout << "Approximated value: " << inter(1.0, 1.0) << " vs Exact value: " << exact_solution(1.0, 1.0) << std::endl;
+	std::cout << "Approximated value: " << inter(0.5, 1.8) << " vs Exact value: " << exact_solution(0.5, 1.8) << std::endl;
+}
+
+void exampleBSPDE()
+{
+	std::cout << " ------------ Black Scholes PDE Example -----------------\n"; 
+	double spot = 100.0;
+	double strike = 110.0;
+	double timeToMat = 1.0;
+	double sigma = 0.2;
+	double riskFreeRate = 0.2;
+	std::cout << "Spot = " << spot << std::endl;
+	std::cout << "Strike = " << strike << std::endl;
+	std::cout << "Time To Maturity = " << timeToMat << std::endl;
+	std::cout << "Vol = " << sigma << std::endl;
+	std::cout << "Risk Free Rate = " << riskFreeRate << std::endl;
+	long numXSteps = 200L; 
+	long numTSteps = 8000L;
+	std::cout << "Number of points in X space = " << numXSteps << std::endl;
+	std::cout << "Number of points in T space = " << numTSteps << std::endl;
+	auto solution = solveBlackScholesPDE(spot, strike, sigma, timeToMat, riskFreeRate, { 5, 200L, 8000L });
+
+	std::cout << "Numerical solution = " << solution(100.0, 1.0) << std::endl;
 }

@@ -119,3 +119,24 @@ double DataAnalysis::pacf(const std::vector<double>& series, const int lag)
 
 	return numeratorMatrix.determinant() / denominatorMatrix.determinant();
 }
+
+std::pair<std::vector<double>, double> DataAnalysis::fitAR(std::vector<double> sample, int p)
+{
+	// first we compute the autocovariance values from the sample 
+	std::vector<double> autocovariances = DataAnalysis::autoCovariance(sample, 0, p);
+
+	// matrix for the yuke walker equations 
+	Matrix ywMatrix{ p, p, 0.0 };
+	for (int i = 0; i < p; i++)
+	{
+		for (int j = 0; j < p; j++)
+		{
+			ywMatrix.set(i, j, autocovariances[abs(i - j)]);
+		}
+	}
+
+	std::vector<double> vals{ autocovariances.begin() + 1, autocovariances.end() };
+	std::vector<double> phis = solveMatrixEqtn(ywMatrix, vals);
+	double variance = autocovariances[0] - std::inner_product(std::begin(phis), std::end(phis), std::begin(vals), 0.0);
+	return std::pair<std::vector<double>, double>{phis, std::sqrt(variance)};
+}

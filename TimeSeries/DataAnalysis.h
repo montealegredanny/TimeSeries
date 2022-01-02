@@ -2,6 +2,7 @@
 # include <vector>
 # include <numeric>
 # include "../LinearAlgebra/Matrix.h"
+# include "../LinearAlgebra/GaussElimination.h"
 
 namespace DataAnalysis
 {
@@ -27,5 +28,8 @@ namespace DataAnalysis
 
 	// partial autocorrelation function using Levinson-Durbin recursion without bias correction.
 	double pacf(const std::vector<double>& series, const int lag);
+
+	// fit AR process by solving the Yule-Walker equations (returns phis and variance)
+	std::pair<std::vector<double>, double> fitAR(std::vector<double> sample, int p); 
 
 }
